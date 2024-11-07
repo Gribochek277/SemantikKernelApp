@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.SemanticKernel;
 using SemanticKernelTest.Services.Rag;
 using SemanticKernelTest.Services.Scrappers;
+using SemanticKernelTest.Services.Speech;
 using SemanticKernelTest.Services.UserInterface.Chats;
 using SemanticKernelTest.Services.UserInterface.Chats.Factory;
 
@@ -51,6 +52,7 @@ static class Program
         collection.AddTransient<IDirectoryScrapper, SolutionScrapper>();
         collection.AddTransient<IChatCollectionFactory, ChatCollectionFactory>();
         collection.AddTransient<IRagImporter, RagImporter>();
+        collection.AddTransient<ITtsService, OpenedAiIntegration>();
         collection.AddTransient<ICore, Core>();
         
         _serviceProvider = collection.BuildServiceProvider();
