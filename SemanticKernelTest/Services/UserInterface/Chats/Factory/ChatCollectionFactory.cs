@@ -27,8 +27,8 @@ public class ChatCollectionFactory: IChatCollectionFactory
         var chats = new List<IChat>
         {
            // new ChatNoMemory(_kernel, _configuration),
-           // new ChatWIthRag(_kernel, _configuration),
-            new ChatTts(_kernel, _configuration, _ttsService)
+            new ChatWIthRag(_kernel, _configuration),
+           // new ChatTts(_kernel, _configuration, _ttsService)
         };
 
         return chats;

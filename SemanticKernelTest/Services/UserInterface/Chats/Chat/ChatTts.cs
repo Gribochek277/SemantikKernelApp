@@ -20,13 +20,14 @@ public class ChatTts: IChat
     }
     public async Task SendMessage(string message, CancellationToken cancellationToken)
     {
-        var prompt = @"
+        const string prompt = @"
                         Question: {{$input}}
                         Answer the question using the memory content: {{Recall}}";
             
         OpenAIPromptExecutionSettings settings = new()
         {
             ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions,
+            Temperature = 0.7f
         };
 
         var arguments = new KernelArguments(settings)
@@ -45,14 +46,15 @@ public class ChatTts: IChat
 
         var response = _kernel.InvokePromptStreamingAsync(prompt,
             arguments, cancellationToken: cancellationToken);
-        StringBuilder sb = new StringBuilder();
+        var sb = new StringBuilder();
         await foreach (var result in response)
         {
             var s = (StreamingChatMessageContent)result;
             sb.Append(s.Content);
+            Console.Write(result);
         }
 
-        SpeechRequest request = new SpeechRequest( 
+        var request = new SpeechRequest( 
             sb.ToString()
             );
         

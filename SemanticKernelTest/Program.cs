@@ -30,12 +30,15 @@ static class Program
             .AddEnvironmentVariables()
             .AddCommandLine(args)
             .Build();
-        var textModel = configuration.GetValue<string>("Models:TextModel") ?? throw new InvalidOperationException();
-        var embeddingModel = configuration.GetValue<string>("Models:EmbeddingModel") ?? throw new InvalidOperationException();
+        var textModel = configuration.GetValue<string>("Models:TextModel") 
+                        ?? throw new InvalidOperationException();
+        var embeddingModel = configuration.GetValue<string>("Models:EmbeddingModel") 
+                             ?? throw new InvalidOperationException();
         
         var customHttpClient = new HttpClient
         {
-            BaseAddress = new Uri(configuration.GetValue<string>("OllamaEndpoint") ?? throw new InvalidOperationException()),
+            BaseAddress = new Uri(configuration.GetValue<string>("OllamaEndpoint") 
+                                  ?? throw new InvalidOperationException()),
             Timeout = TimeSpan.FromSeconds(5000)
         };
         

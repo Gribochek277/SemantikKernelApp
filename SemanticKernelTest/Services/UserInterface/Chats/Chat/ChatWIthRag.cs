@@ -28,6 +28,7 @@ public class ChatWIthRag: IChat
         OpenAIPromptExecutionSettings settings = new()
         {
             ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions,
+            Temperature = 0.3f
         };
 
         var arguments = new KernelArguments(settings)
