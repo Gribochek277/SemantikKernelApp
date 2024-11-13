@@ -13,4 +13,10 @@ public interface IChat
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task SendMessage(string message, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Stops generation of responce
+    /// </summary>
+    /// <returns></returns>
+    Task StopGeneration();
 }

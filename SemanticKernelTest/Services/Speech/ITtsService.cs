@@ -5,4 +5,5 @@ namespace SemanticKernelTest.Services.Speech;
 public interface ITtsService
 {
     Task GenerateAndPlaySpeechAsync(SpeechRequest request);
+    Task StopPlaybackAsync();
 }

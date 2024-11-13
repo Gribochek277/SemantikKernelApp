@@ -11,7 +11,8 @@ namespace SemanticKernelTest.Services.UserInterface.Chats.Chat;
 public class ChatWIthRag: IChat
 {
     private readonly Kernel _kernel;
-    private readonly string _modelName; 
+    private readonly string _modelName;
+    private bool _generationState;
     
     public ChatWIthRag(Kernel kernel, IConfiguration configuration)
     {
@@ -21,6 +22,7 @@ public class ChatWIthRag: IChat
     /// <inheritdoc cref="IChat.SendMessage"/>
     public async Task SendMessage(string message, CancellationToken cancellationToken)
     {
+        _generationState = true;
         var prompt = @"
                         Question: {{$input}}
                         Answer the question using the memory content: {{Recall}}";
@@ -51,5 +53,10 @@ public class ChatWIthRag: IChat
         {
             Console.Write(result);
         }
+    }
+
+    public Task StopGeneration()
+    {
+        return Task.FromResult(Task.CompletedTask);
     }
 }

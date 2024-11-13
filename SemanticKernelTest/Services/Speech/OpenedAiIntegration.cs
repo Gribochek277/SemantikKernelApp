@@ -10,10 +10,12 @@ public class OpenedAiIntegration: ITtsService
 {
     private static readonly HttpClient HttpClient = new HttpClient();
     private readonly IConfiguration _configuration;
+    private readonly Player _player;
 
     public OpenedAiIntegration(IConfiguration configuration)
     {
         _configuration = configuration;
+        _player = new Player();
     }
     public async Task GenerateAndPlaySpeechAsync(SpeechRequest request)
     {
@@ -32,8 +34,8 @@ public class OpenedAiIntegration: ITtsService
 
             Console.WriteLine("\n Speech playback started.");
             
-            var player = new Player();
-            await player.Play("speech.mp3");
+            
+            await _player.Play("speech.mp3");
 
             Console.WriteLine("\n Speech playback finished.");
         }
@@ -41,5 +43,10 @@ public class OpenedAiIntegration: ITtsService
         {
             Console.WriteLine($"Error: {ex.Message}");
         }
+    }
+
+    public async Task StopPlaybackAsync()
+    {
+        await _player.Stop();
     }
 }

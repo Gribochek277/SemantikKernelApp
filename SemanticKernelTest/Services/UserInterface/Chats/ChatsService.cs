@@ -30,6 +30,16 @@ public class ChatsService: IChatsService
                 break;
             }
             
+            if (question == "stop")
+            {
+                foreach (var chat in Chats)
+                {
+                    await chat.StopGeneration();
+                }
+                
+                continue;
+            }
+            
             foreach (var chat in Chats)
             {
                 await chat.SendMessage(question, cancellationToken);

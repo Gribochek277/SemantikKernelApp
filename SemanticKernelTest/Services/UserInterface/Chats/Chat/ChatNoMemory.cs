@@ -28,4 +28,9 @@ public class ChatNoMemory: IChat
             Console.Write(result);
         }
     }
+
+    public Task StopGeneration()
+    {
+        return Task.FromResult(Task.CompletedTask);
+    }
 }

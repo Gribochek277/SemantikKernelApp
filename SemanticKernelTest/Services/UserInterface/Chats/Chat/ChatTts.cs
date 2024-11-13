@@ -42,7 +42,7 @@ public class ChatTts: IChat
 
 
         Console.WriteLine(
-            $"{_modelName} response (using semantic memory).");
+            $"{_modelName} response (using semantic memory) and TTS {nameof(_ttsService)}.");
 
         var response = _kernel.InvokePromptStreamingAsync(prompt,
             arguments, cancellationToken: cancellationToken);
@@ -59,5 +59,10 @@ public class ChatTts: IChat
             );
         
         await _ttsService.GenerateAndPlaySpeechAsync(request);
+    }
+
+    public async Task StopGeneration()
+    {
+        await _ttsService.StopPlaybackAsync();
     }
 }
